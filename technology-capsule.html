@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/technology.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Space tourism website</title>
+</head>
+<body>
+<main>
+  <div id="homepage-topsection">
+    <img id="logo" src="./assets/shared/logo.svg" alt="logo for the website">
+    <div class="home-nav-line"></div>
+    <nav class="navbar">
+      <img id="mobile-nav" src="./assets//shared/icon-hamburger.svg" alt="hamburger menu for mobile screen">
+      <ul id="navbar-options">
+        <li><span class="navbar-options-number">00</span><a href="./index.html">Home</a> </li>
+        <li><span class="navbar-options-number">01</span><a href="./destination-moon.html">Destination</a></li>
+        <li><span class="navbar-options-number">02</span><a href="crew-commander.html">Crew</a></li>
+        <li><span class="navbar-options-number">03</span><a href="./technology-capsule.html">Technology</a></li>
+      </ul>
+    </nav>
+  </div>
+
+
+  <section id="technology-sequence-container" class="technology-sequence-container">
+    <p class="technology-pick"><span class="technology-sequence">03</span>Space Launch 101</p>
+  </section>
+
+  <section id="technology-data-container" class="technology-data-container">
+    <div class="technology-image-container">
+      <img id="technology-image" src="" alt="" >
+    </div>
+    <div id="image-button" class="flex">
+        <div id="technology-data-toggle">
+          <div id="technology-member-1" class="technology-data-toggle-button">1</div>
+          <div id="technology-member-2" class="technology-data-toggle-button">2</div>
+          <div id="technology-member-3" class="technology-data-toggle-button">3</div>
+        </div>
+    </div>
+  
+    <div id="technology-data">
+      <p id="technology-name"></p>
+      <p id="technology-bio"></p>
+    </div>  
+  
+  </section>
+</main>
+
+<script>
+  var logo = document.getElementById("logo");
+  var hamburgerIcon = document.getElementById("mobile-nav");
+  var navbarItems = document.getElementById("navbar-options");
+  var container = document.getElementById("crew-sequence-container");
+
+  function openMenu() {
+    // if visible is set remove it, otherwise add it
+    navbarItems.classList.toggle("openMenu");
+    container.classList.toggle("margin");
+  }
+  function screenWidth() {
+    if (window.screen.width > 590) {
+      navbarItems.classList.remove("openMenu");
+      container.classList.remove("margin");
+    }
+  }
+
+  hamburgerIcon.addEventListener("click", openMenu);
+  window.addEventListener("resize",screenWidth);
+</script>
+
+<script type="module">
+  //this will access the different div containers that will hold crew info
+  var image = document.getElementById("technology-image");
+  var name = document.getElementById("technology-name");
+  var bio = document.getElementById("technology-bio");
+
+  //this will be populated with the crew data
+  var techData = [];
+
+  //this function runs only when page loads
+  function getData() {
+    fetch("./data.json")
+    .then((response) => response.json())
+    .then(data => {
+
+      techData = data.technology;
+
+      image.src =  data["technology"][0].images.portrait;
+      image.ariaLabel = data["technology"][0].name;
+      name.innerHTML = data["technology"][0].name;
+      bio.innerHTML = data["technology"][0].description;
+
+      memberOne.style.backgroundColor = "#FFF";
+      memberOne.style.color = "#333";
+    });
+  };
+
+  window.onload = getData();
+  
+  //set up toggle buttons
+  var memberOne = document.getElementById("technology-member-1");
+  var memberTwo = document.getElementById("technology-member-2");
+  var memberThree = document.getElementById("technology-member-3");
+
+
+  function setData(num) {
+      image.src =  techData[num].images.portrait;
+      image.ariaLabel = techData[num].name;
+      name.innerHTML = techData[num].name;
+      bio.innerHTML = techData[num].description;
+
+      switch (num) {
+        case 0:
+          memberOne.style.backgroundColor = "#FFF";
+          memberOne.style.color = "#333";
+          memberTwo.style.backgroundColor = "transparent";
+          memberTwo.style.color = "ghostwhite";
+          memberThree.style.backgroundColor = "transparent";
+          memberThree.style.color = "ghostwhite";
+          break;
+        case 1:
+          memberOne.style.backgroundColor = "transparent";
+          memberOne.style.color = "ghostwhite";
+          memberTwo.style.backgroundColor = "#FFF";
+          memberTwo.style.color = "#333";
+          memberThree.style.backgroundColor = "transparent";
+          memberThree.style.color = "ghostwhite";
+          break;
+        case 2:
+          memberOne.style.backgroundColor = "transparent";
+          memberOne.style.color = "ghostwhite";
+          memberTwo.style.backgroundColor = "transparent";
+          memberTwo.style.color = "ghostwhite";
+          memberThree.style.backgroundColor = "#FFF";
+          memberThree.style.color = "#333";
+          break;
+      
+        default:
+        memberOne.style.backgroundColor = "#FFF";
+      }
+   
+  }
+
+  //when user clicks the buttons, the crew data will update and the circle will fill white
+  memberOne.addEventListener("click", () => setData(0));
+  memberTwo.addEventListener("click", () => setData(1));
+  memberThree.addEventListener("click", () => setData(2));
+  memberFour.addEventListener("click", () => setData(3));
+
+</script>
+
+</body>
+</html>

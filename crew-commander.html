@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/crew.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Space tourism website</title>
+</head>
+<body>
+<main>
+  <div id="homepage-topsection">
+    <img id="logo" src="./assets/shared/logo.svg" alt="logo for the website">
+    <div class="home-nav-line"></div>
+    <nav class="navbar">
+      <img id="mobile-nav" src="./assets//shared/icon-hamburger.svg" alt="hamburger menu for mobile screen">
+      <ul id="navbar-options">
+        <li><span class="navbar-options-number">00</span><a href="./index.html">Home</a> </li>
+        <li><span class="navbar-options-number">01</span><a href="./destination-moon.html">Destination</a></li>
+        <li><span class="navbar-options-number">02</span><a href="crew-commander.html">Crew</a></li>
+        <li><span class="navbar-options-number">03</span><a href="./technology-capsule.html">Technology</a></li>
+      </ul>
+    </nav>
+  </div>
+
+
+  <section id="crew-sequence-container" class="crew-sequence-container">
+    <p class="crew-pick"><span class="crew-sequence">02</span>Meet your crew</p>
+  </section>
+
+  <section id="crew-data-container" class="crew-data-container">
+    <div class="crew-image-container">
+      <img id="crew-image" src="" alt="" >
+    </div>
+    <div id="image-button" class="flex">
+        <div id="crew-data-toggle">
+          <div id="crew-member-1" class="crew-data-toggle-button"></div>
+          <div id="crew-member-2" class="crew-data-toggle-button"></div>
+          <div id="crew-member-3" class="crew-data-toggle-button"></div>
+          <div id="crew-member-4" class="crew-data-toggle-button"></div>
+        </div>
+    </div>
+  
+    <div id="crew-data">
+      <p id="crew-role"></p>
+      <p id="crew-name"></p>
+      <p id="crew-bio"></p>
+    </div>  
+  
+  </section>
+</main>
+
+<script>
+  var logo = document.getElementById("logo");
+  var hamburgerIcon = document.getElementById("mobile-nav");
+  var navbarItems = document.getElementById("navbar-options");
+  var container = document.getElementById("crew-sequence-container");
+
+  function openMenu() {
+    // if visible is set remove it, otherwise add it
+    navbarItems.classList.toggle("openMenu");
+    container.classList.toggle("margin");
+  }
+  function screenWidth() {
+    if (window.screen.width > 590) {
+      navbarItems.classList.remove("openMenu");
+      container.classList.remove("margin");
+    }
+  }
+
+  hamburgerIcon.addEventListener("click", openMenu);
+  window.addEventListener("resize",screenWidth);
+</script>
+
+<script type="module">
+  //this will access the different div containers that will hold crew info
+  var image = document.getElementById("crew-image");
+  var role = document.getElementById("crew-role");
+  var name = document.getElementById("crew-name");
+  var bio = document.getElementById("crew-bio");
+
+  //this will be populated with the crew data
+  var crewData = [];
+
+  //this function runs only when page loads
+  function getData() {
+    fetch("./data.json")
+    .then((response) => response.json())
+    .then(data => {
+
+      crewData = data.crew;
+
+      image.src =  data["crew"][0].images.webp;
+      image.ariaLabel = data["crew"][0].name;
+      role.innerHTML = data["crew"][0].role;
+      name.innerHTML = data["crew"][0].name;
+      bio.innerHTML = data["crew"][0].bio;
+      memberOne.style.backgroundColor = "#FFF";
+    });
+  };
+
+  window.onload = getData();
+  
+  //set up toggle buttons
+  var memberOne = document.getElementById("crew-member-1");
+  var memberTwo = document.getElementById("crew-member-2");
+  var memberThree = document.getElementById("crew-member-3");
+  var memberFour = document.getElementById("crew-member-4");
+
+  function setData(num) {
+      image.src =  crewData[num].images.webp;
+      image.ariaLabel = crewData[num].name;
+      role.innerHTML = crewData[num].role;
+      name.innerHTML = crewData[num].name;
+      bio.innerHTML = crewData[num].bio;
+
+      switch (num) {
+        case 0:
+          memberOne.style.backgroundColor = "#FFF";
+          memberTwo.style.backgroundColor = "transparent";
+          memberThree.style.backgroundColor = "transparent";
+          memberFour.style.backgroundColor = "transparent";
+          break;
+        case 1:
+          memberOne.style.backgroundColor = "transparent";
+          memberTwo.style.backgroundColor = "#FFF";
+          memberThree.style.backgroundColor = "transparent";
+          memberFour.style.backgroundColor = "transparent";
+          break;
+        case 2:
+          memberOne.style.backgroundColor = "transparent";
+          memberTwo.style.backgroundColor = "transparent";
+          memberThree.style.backgroundColor = "#FFF";
+          memberFour.style.backgroundColor = "transparent";
+          break;
+        case 3:
+          memberOne.style.backgroundColor = "transparent";
+          memberTwo.style.backgroundColor = "transparent";
+          memberThree.style.backgroundColor = "transparent";
+          memberFour.style.backgroundColor = "#FFF";
+          break;
+      
+        default:
+        memberOne.style.backgroundColor = "#FFF";
+      }
+   
+  }
+
+  //when user clicks the buttons, the crew data will update and the circle will fill white
+  memberOne.addEventListener("click", () => setData(0));
+  memberTwo.addEventListener("click", () => setData(1));
+  memberThree.addEventListener("click", () => setData(2));
+  memberFour.addEventListener("click", () => setData(3));
+
+</script>
+
+</body>
+</html>

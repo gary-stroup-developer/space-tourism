@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/home.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Space tourism website</title>
+</head>
+<body>
+  <main>
+  <div id="homepage-topsection">
+    <img id="logo" src="./assets/shared/logo.svg" alt="logo for the website">
+    <div class="home-nav-line"></div>
+    <nav class="navbar">
+      <img id="mobile-nav" src="./assets//shared/icon-hamburger.svg" alt="hamburger menu for mobile screen">
+      <ul id="navbar-options">
+        <li><span class="navbar-options-number">00</span><a href="./index.html">Home</a> </li>
+        <li><span class="navbar-options-number">01</span><a href="./destination-moon.html">Destination</a></li>
+        <li><span class="navbar-options-number">02</span><a href="crew-commander.html">Crew</a></li>
+        <li><span class="navbar-options-number">03</span><a href="./technology-capsule.html">Technology</a></li>
+      </ul>
+    </nav>
+  </div>
+  
+  <div class="destination-data">
+    <div class="destination-data-hookLine">
+      <p class="text-36 text-all-caps">So, you want to travel to</p>
+      <p class="text-96 text-all-caps">Space</p>
+      <p class="text-21 w-450">Let’s face it; if you want to go to space, you might as well genuinely go to 
+          outer space and not hover kind of on the edge of it. Well sit back, and relax 
+          because we’ll give you a truly out of this world experience!
+      </p>
+    </div>
+    <div class="p-2">
+      <p class="text-36 text-all-caps circular-div">Explore</p>
+    </div>
+  </div>
+</main>
+<script>
+  var logo = document.getElementById("logo");
+  var hamburgerIcon = document.getElementById("mobile-nav");
+  var navbarItems = document.getElementById("navbar-options");
+
+  function openMenu() {
+    // if visible is set remove it, otherwise add it
+    navbarItems.classList.toggle("openMenu");
+  }
+  function screenWidth() {
+    if (window.screen.width > 590) {
+      navbarItems.classList.remove("openMenu");
+    }
+  }
+
+  hamburgerIcon.addEventListener("click", openMenu);
+  window.addEventListener("resize",screenWidth);
+</script>
+  
+</body>
+</html>
