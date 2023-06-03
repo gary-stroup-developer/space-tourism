@@ -1,6 +1,6 @@
-#Frontend Mentor Space Tourism Multipage site
+# Frontend Mentor Space Tourism Multipage site
 
-##Technology used
+## Technology used
 1. HTML
 2. CSS
 3. Javascript
